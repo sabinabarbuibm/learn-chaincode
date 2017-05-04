@@ -75,7 +75,7 @@ type Owner struct {
 type CP struct {
 	CUSIP     string  `json:"cusip"`
 	Ticker    string  `json:"ticker"`
-	Par       float64 `json:"par"`
+	Price       float64 `json:"price"`
 	Qty       int     `json:"qty"`
 	Discount  float64 `json:"discount"`
 	Maturity  int     `json:"maturity"`
@@ -568,7 +568,7 @@ func (t *SimpleChaincode) transferPaper(stub shim.ChaincodeStubInterface, args [
 		fmt.Println("The FromCompany owns enough of this paper")
 	}
 
-	amountToBeTransferred := float64(tr.Quantity) * cp.Par
+	amountToBeTransferred := float64(tr.Quantity) * cp.Price
 	amountToBeTransferred -= (amountToBeTransferred) * (cp.Discount / 100.0) * (float64(cp.Maturity) / 360.0)
 
 	// If toCompany doesn't have enough cash to buy the papers
